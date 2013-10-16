@@ -1,5 +1,5 @@
 
-package br.com.modelo;
+package br.com.guilhermediehl.modelo;
 
 public class CompraFisica {
     

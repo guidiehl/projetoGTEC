@@ -1,11 +1,11 @@
 
-package br.com.modelo;
+package br.com.guilhermediehl.modelo;
 
-public class ClienteJuridico extends PessoaJuridica {
+public class FornecedorJuridico extends PessoaJuridica {
     
     private int codigo;
 
-    public ClienteJuridico() {
+    public FornecedorJuridico() {
     }
 
     public int getCodigo() {
@@ -18,7 +18,7 @@ public class ClienteJuridico extends PessoaJuridica {
 
     @Override
     public String toString() {
-        return "ClienteJuridico{" + "codigo=" + codigo + '}';
+        return "FornecedorJuridico{" + "codigo=" + codigo + '}';
     }
-        
+    
 }

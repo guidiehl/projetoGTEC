@@ -1,15 +1,15 @@
 
-package br.com.modelo;
+package br.com.guilhermediehl.modelo;
 
-public class VendaJuridica {
+public class VendaFisica {
     
     private int codigo;
     private Veiculos produto;
     private Colaborador vendedor;
-    private ClienteJuridico cliente;    
+    private ClienteFisico cliente;    
     private String dataCompra;
 
-    public VendaJuridica() {
+    public VendaFisica() {
     }
 
     public int getCodigo() {
@@ -36,11 +36,11 @@ public class VendaJuridica {
         this.vendedor = vendedor;
     }
 
-    public ClienteJuridico getCliente() {
+    public ClienteFisico getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteJuridico cliente) {
+    public void setCliente(ClienteFisico cliente) {
         this.cliente = cliente;
     }
 
@@ -54,9 +54,7 @@ public class VendaJuridica {
 
     @Override
     public String toString() {
-        return "VendaJuridica{" + "codigo=" + codigo + ", produto=" + produto + ", vendedor=" + vendedor + ", cliente=" + cliente + ", dataCompra=" + dataCompra + '}';
+        return "VendaFisica{" + "codigo=" + codigo + ", produto=" + produto + ", vendedor=" + vendedor + ", cliente=" + cliente + ", dataCompra=" + dataCompra + '}';
     }
-    
-    
     
 }

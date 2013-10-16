@@ -1,11 +1,11 @@
 
-package br.com.modelo;
+package br.com.guilhermediehl.modelo;
 
-public class Colaborador extends PessoaFisica {
+public class ClienteFisico extends PessoaFisica {
     
-    private int codigo;
+    private int codigo; 
 
-    public Colaborador() {
+    public ClienteFisico() {
     }
 
     public int getCodigo() {
@@ -18,7 +18,7 @@ public class Colaborador extends PessoaFisica {
 
     @Override
     public String toString() {
-        return "Colaborador{" + "codigo=" + codigo + '}';
-    }
+        return "ClienteFisico{" + "codigo=" + codigo + '}';
+    }    
     
 }
