@@ -7,7 +7,7 @@ public class PessoaJuridica {
     private String cnpj;
     private Endereco endereco;
     private String telefone;
-    private String emailGeral;
+    private String email;
     private String website;
     private String conta;
 
