@@ -1,7 +1,7 @@
 
 package br.com.guilhermediehl.modelo;
 
-public class PessoaFisica {
+public abstract class PessoaFisica {
     
     private String nome;
     private String rg;

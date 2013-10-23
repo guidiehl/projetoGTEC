@@ -1,9 +1,9 @@
 
 package br.com.guilhermediehl.modelo;
 
-public class PessoaJuridica {
+public abstract class PessoaJuridica {
     
-    private String nomeFantasia;
+    private String nome;
     private String cnpj;
     private Endereco endereco;
     private String telefone;
@@ -14,12 +14,12 @@ public class PessoaJuridica {
     public PessoaJuridica() {
     }
 
-    public String getNomeFantasia() {
-        return nomeFantasia;
+    public String getNome() {
+        return nome;
     }
 
     public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
+        this.nome = nomeFantasia;
     }
 
     public String getCnpj() {
@@ -46,12 +46,12 @@ public class PessoaJuridica {
         this.telefone = telefone;
     }
 
-    public String getEmailGeral() {
-        return emailGeral;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailGeral(String emailGeral) {
-        this.emailGeral = emailGeral;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getWebsite() {
@@ -72,7 +72,7 @@ public class PessoaJuridica {
 
     @Override
     public String toString() {
-        return "PessoaJuridica{" + "nomeFantasia=" + nomeFantasia + ", cnpj=" + cnpj + ", endereco=" + endereco + ", telefone=" + telefone + ", emailGeral=" + emailGeral + ", website=" + website + ", conta=" + conta + '}';
+        return "PessoaJuridica{" + "nome=" + nome + ", cnpj=" + cnpj + ", endereco=" + endereco + ", telefone=" + telefone + ", email=" + email + ", website=" + website + ", conta=" + conta + '}';
     }
     
 }
