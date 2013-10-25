@@ -3,6 +3,7 @@ package br.com.guilhermediehl.modelo;
 
 public class Endereco {
     
+    private int codigo;
     private String rua;
     private String bairro;
     private int numero;
@@ -13,6 +14,14 @@ public class Endereco {
     private String pais;
 
     public Endereco() {
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getRua() {
@@ -81,6 +90,7 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "Endereco{" + "rua=" + rua + ", bairro=" + bairro + ", numero=" + numero + ", complemento=" + complemento + ", cep=" + cep + ", cidade=" + cidade + ", estado=" + estado + ", pais=" + pais + '}';
+        return "Endereco{" + "codigo=" + codigo + ", rua=" + rua + ", bairro=" + bairro + ", numero=" + numero + ", complemento=" + complemento + ", cep=" + cep + ", cidade=" + cidade + ", estado=" + estado + ", pais=" + pais + '}';
     }
+    
 }

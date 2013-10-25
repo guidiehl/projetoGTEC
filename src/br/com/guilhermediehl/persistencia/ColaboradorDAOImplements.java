@@ -42,7 +42,13 @@ public class ColaboradorDAOImplements {
             pstm.setString(2, u.getLogin());
             pstm.setString(3, u.getSenha());
             pstm.setString(4, u.getCpf());
-            pstm.setString(5, u.getTelefone());            
+            pstm.setString(5, u.getRg());
+            pstm.setInt(6, u.getEndereco().getCodigo()); 
+            pstm.setString(7, u.getTelefone()); 
+            pstm.setString(8, u.getEmail()); 
+            pstm.setDouble(9, u.getSalario());
+            pstm.setString(10, u.getConta());             
+            
             pstm.execute();
             
             try(ResultSet rs = 
@@ -111,12 +117,9 @@ public class ColaboradorDAOImplements {
                 Colaborador u = new Colaborador();
                 
                 u.setCodigo(rs.getInt("codigo"));
-                u.setNome(rs.getString("nome"));                
-                u.setCpf(rs.getString("cpf"));
+                u.setNome(rs.getString("nome"));
                 u.setLogin(rs.getString("login"));
-                u.setSenha(rs.getString("senha"));               
-                u.setTelefone(rs.getString("telefone"));
-                
+                u.setEmail(rs.getString("email")); 
                 colaboradores.add(u);
             }
         } catch (Exception e){
@@ -148,9 +151,8 @@ public class ColaboradorDAOImplements {
                 u.setCodigo(rs.getInt("codigo"));
                 u.setNome(rs.getString("nome"));
                 u.setLogin(rs.getString("login"));
-                u.setSenha(rs.getString("senha"));
-                u.setCpf(rs.getString("cpf"));
-                u.setTelefone(rs.getString("telefone"));                
+                u.setSenha(rs.getString("email"));
+                                
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao listar usuário: " +e.getMessage());
