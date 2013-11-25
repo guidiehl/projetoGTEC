@@ -12,5 +12,5 @@ public interface ColaboradorDAO {
     List<Colaborador> listAll();
     Colaborador listById(int codigo);   
     List<Colaborador> listByNome(String nome);
-    
+    boolean Login (String login, String senha);
 }

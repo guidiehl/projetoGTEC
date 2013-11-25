@@ -6,10 +6,10 @@ public abstract class PessoaFisica {
     private String nome;
     private String rg;
     private String cpf;
-    private Endereco endereco;
+    private String endereco;
     private String telefone;
     private String email;
-    private String conta;
+    private double conta;
 
     public PessoaFisica() {
     }
@@ -38,13 +38,15 @@ public abstract class PessoaFisica {
         this.cpf = cpf;
     }
 
-    public Endereco getEndereco() {
+    public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
+    public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
+
 
     public String getTelefone() {
         return telefone;
@@ -62,13 +64,15 @@ public abstract class PessoaFisica {
         this.email = email;
     }
 
-    public String getConta() {
+    public double getConta() {
         return conta;
     }
 
-    public void setConta(String conta) {
+    public void setConta(double conta) {
         this.conta = conta;
     }
+
+
 
     @Override
     public String toString() {

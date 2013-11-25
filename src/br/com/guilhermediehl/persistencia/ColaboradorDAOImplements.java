@@ -1,6 +1,7 @@
 
 package br.com.guilhermediehl.persistencia;
 
+import br.com.guilhermediehl.dao.ColaboradorDAO;
 import br.com.guilhermediehl.modelo.Colaborador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,15 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class ColaboradorDAOImplements {
+public class ColaboradorDAOImplements implements ColaboradorDAO{
     
     
-    private static final String INSERT = "insert into colaborador (nome, login, senha, cpf, rg, id_endereco, telefone, email, salario, conta) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private static final String LIST = "select * from colaborador,endereco where colaborador.endereco_id = endereco.codigo;";
-    private static final String REMOVE = "delete from colaborador where codigo = ?;";
-    private static final String UPDATE = "update colaborador set nome = ?, login = ?, senha = ?, cpf = ?, rg = ?,  telefone = ? where codigo = ?;";
-    private static final String LISTBYID = "select * from colaborador where codigo = ?;";
+    private static final String INSERT = "insert into colaborador (nome, rg, cpf, endereco, email, conta, login, senha, salario, telefone) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String LIST = "select * from colaborador;";
+    private static final String REMOVE = "delete from colaborador where id = ?;";
+    private static final String UPDATE = "update colaborador set nome=?, rg=?, cpf=?, endereco=?, email=?, conta=?, login=?, senha=?, salario=?, telefone=? where id = ?;";
+    private static final String LISTBYID = "select * from colaborador where id = ?;";
     private static final String LISTBYNOME = "select * from colaborador where nome like ?;";
+    private static final String LOGIN  = "select * from colaborador where login = ? and senha = ?;";
     
     
     public int salve(Colaborador u) {
@@ -30,7 +32,7 @@ public class ColaboradorDAOImplements {
         }
     }
     
-    private int insert(Colaborador u){
+    public int insert(Colaborador u){//PRIVATE ALTERADO PARA PUBLIC!!!!!!!!!!!!!
         Connection con = null;
         PreparedStatement pstm = null;
         int retorno = -1;
@@ -39,16 +41,16 @@ public class ColaboradorDAOImplements {
             pstm = con.prepareStatement(INSERT,
                     Statement.RETURN_GENERATED_KEYS);
             pstm.setString(1, u.getNome());
-            pstm.setString(2, u.getLogin());
-            pstm.setString(3, u.getSenha());
-            pstm.setString(4, u.getCpf());
-            pstm.setString(5, u.getRg());
-            pstm.setInt(6, u.getEndereco().getCodigo()); 
-            pstm.setString(7, u.getTelefone()); 
-            pstm.setString(8, u.getEmail()); 
+            pstm.setString(2, u.getRg());
+            pstm.setString(3, u.getCpf());
+            pstm.setString(4, u.getEndereco()); 
+            pstm.setString(5, u.getEmail()); 
+            pstm.setDouble(6, u.getConta());  
+            pstm.setString(7, u.getLogin());
+            pstm.setString(8, u.getSenha());
             pstm.setDouble(9, u.getSalario());
-            pstm.setString(10, u.getConta());             
-            
+            pstm.setString(10, u.getTelefone());        
+                                   
             pstm.execute();
             
             try(ResultSet rs = 
@@ -116,10 +118,10 @@ public class ColaboradorDAOImplements {
             while(rs.next()){
                 Colaborador u = new Colaborador();
                 
-                u.setCodigo(rs.getInt("codigo"));
+                u.setCodigo(rs.getInt("id"));
                 u.setNome(rs.getString("nome"));
+                 u.setCpf(rs.getString("cpf"));
                 u.setLogin(rs.getString("login"));
-                u.setEmail(rs.getString("email")); 
                 colaboradores.add(u);
             }
         } catch (Exception e){
@@ -148,10 +150,10 @@ public class ColaboradorDAOImplements {
             rs = pstm.executeQuery();
             
             while(rs.next()){
-                u.setCodigo(rs.getInt("codigo"));
+                u.setCodigo(rs.getInt("id"));
                 u.setNome(rs.getString("nome"));
+                u.setCpf(rs.getString("cpf"));
                 u.setLogin(rs.getString("login"));
-                u.setSenha(rs.getString("email"));
                                 
             }
         }catch(Exception e){
@@ -179,7 +181,13 @@ public class ColaboradorDAOImplements {
             pstm.setString(3, u.getSenha());
             pstm.setString(4, u.getCpf());
             pstm.setString(5, u.getTelefone());
-            pstm.setInt(8, u.getCodigo());
+            pstm.setString(6, u.getRg());
+            pstm.setString(7, u.getEndereco());
+            pstm.setString(8, u.getEmail());
+            pstm.setDouble(9, u.getSalario());
+            pstm.setString(10, u.getLogin());
+            pstm.setString(11, u.getSenha());
+            //pstm.setInt(12, u.getCodigo());
             
             pstm.execute();
             
@@ -213,7 +221,7 @@ public class ColaboradorDAOImplements {
             while(rs.next()){
                 Colaborador u = new Colaborador();
                 
-                u.setCodigo(rs.getInt("codigo"));
+                u.setCodigo(rs.getInt("id"));
                 u.setNome(rs.getString("nome"));
                 u.setCpf(rs.getString("cpf"));                
                 u.setLogin(rs.getString("login"));
@@ -231,6 +239,34 @@ public class ColaboradorDAOImplements {
             }
         }
         return colaboradores;
+    }
+
+    @Override
+    
+    public boolean Login(String login, String senha) {
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        boolean result = false;
+        try {
+            con = ConnectionFactory.getConnection();
+            pstm = con.prepareStatement(LOGIN);
+            pstm.setString(1,  login );
+            pstm.setString(2, senha);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+               result = true;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao inserir o login ou senha " + e.getMessage());
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(con, pstm, rs);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão");
+            }
+        }
+        return result;
     }
     
 }
